@@ -48,10 +48,14 @@ func (q *Queue) Dequeue() (interface{}, error) {
 	return value, nil
 }
 
+func (q *Queue) Size() int {
+	return q.size
+}
+
 func (q *Queue) resize(size int) {
 	newStorage := make([]interface{}, size)
 	for i := 0; i < q.size; i++ {
-		newStorage[i] = q.storage[q.head+i%len(q.storage)]
+		newStorage[i] = q.storage[(q.head+i)%len(q.storage)]
 	}
 	q.head = 0
 	q.tail = q.size
